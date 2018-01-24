@@ -2,7 +2,7 @@
 
 Contains slides and notebooks with code and excercises for Draper Spark Training. 
 
-# Docker Setup 
+## Docker Environment Setup 
 
 We will use a Docker image to run pyspark through jupyter notebooks.
 
