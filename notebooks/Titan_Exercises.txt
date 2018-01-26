@@ -1,0 +1,59 @@
+LOAD GRAPH:
+
+graph = TitanFactory.open('conf/titan-berkeleyje-es.properties')
+GraphOfTheGodsFactory.load(graph)
+g = graph.traversal()
+
+
+EXPLORE THE DATA:
+
+1. Find names of all vertices.
+==>nemean
+==>sky
+==>sea
+==>tartarus
+==>neptune
+==>pluto
+==>cerberus
+==>saturn
+==>jupiter
+==>hercules
+==>hydra
+==>alcmene
+
+2. Find what types of vertices we have.
+==>monster
+==>location
+==>god
+==>titan
+==>demigod
+==>human
+
+3. Find what each type consists of.
+==>[demigod:[hercules], titan:[saturn], location:[sky, sea, tartarus], god:[neptune, pluto, jupiter], human:[alcmene, monster:[nemean, cerberus, hydra]]
+
+4. Find who battled someone.
+==>hercules
+==>hercules
+==>hercules
+
+5. Save Hercules' index so we can use him.
+==>v[12472]
+
+6. Find out about Hercules.
+==>[name:[hercules], age:[30]]
+
+7. Find the name of Hercules' grandfather.
+==>saturn
+
+8. Find Hercules' parents' names.
+==>jupiter
+==>alcmene
+
+9. Find who Hercules has battled more than once.
+==>cerberus
+==>hydra
+
+10. Find who lives where because they love it.
+==>[god:jupiter, reason:loves fresh breezes, thing:sky]
+==>[god:neptune, reason:loves waves, thing:sea]

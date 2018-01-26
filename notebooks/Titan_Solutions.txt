@@ -1,0 +1,19 @@
+1. g.V().values('name')
+
+2. g.V().label().unique()
+
+3. g.V().group().by(label).by('name')
+
+4. g.V().outE('battled').outV().values('name')
+
+5. hercules = g.V().has('name','hercules').next()
+
+6. g.V(hercules).valueMap()
+
+7. g.V(hercules).out('father').out('father').values('name')
+
+8. g.V(hercules).out('father','mother').values('name')
+
+9. g.V(hercules).outE('battled').has('time',gt(1)).inV().values('name')
+
+10. g.E().has('reason',textContains('loves')).as('source').values('reason').as('reason').select('source').outV().values('name').as('god').select('source').inV().values('name').as('thing').select('god', 'reason', 'thing')
