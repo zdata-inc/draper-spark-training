@@ -5,18 +5,23 @@ import sys
 from pyspark import SparkContext
 from pyspark.streaming import StreamingContext
 
-if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Usage: network_wordcount.py <hostname> <port>", file=sys.stderr)
-        exit(-1)
-    sc = SparkContext(appName="PythonStreamingNetworkWordCount")
-    ssc = StreamingContext(sc, 1)
+# Create a local StreamingContext with two working threads and a batch interval of 2 seconds
 
-    lines = ssc.socketTextStream(sys.argv[1], int(sys.argv[2]))
-    counts = lines.flatMap(lambda line: line.split(" "))\
-                  .map(lambda word: (word, 1))\
-                  .reduceByKey(lambda a, b: a+b)
-    counts.pprint()
+sc = SparkContext(appName="StreamingWordCount")
+ssc = StreamingContext(sc, 2)
 
-    ssc.start()
-    ssc.awaitTermination()
+# Create a DStream
+lines = ssc.socketTextStream("localhost", 9999)
+
+# Split each line into words
+words = lines.flatMap(lambda line: line.split(" "))
+
+# Count each word in each batch
+pairs = words.map(lambda word: (word, 1))
+wordCounts = pairs.reduceByKey(lambda x, y: x + y)
+
+# Print each batch
+wordCounts.pprint()
+
+ssc.start()             # Start the computation
+ssc.awaitTermination()  # Wait for the computation to terminate
